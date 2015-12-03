@@ -6,7 +6,6 @@ assembly_info:
 
 before_build:
   - gitversion /l console /output buildserver /updateAssemblyInfo MyLib\Properties\AssemblyInfo.cs
-  - appveyor UpdateBuild -Version "%GitVersion_SemVer%"
   - nuget restore
 
 build:
@@ -14,12 +13,12 @@ build:
   verbosity: minimal
 
 after_build:
+  - 7z a "MyLib_%GitVersion_NuGetVersion%.zip" ".\MyLib\bin\%CONFIGURATION%\"
   - nuget pack MyLib\MyLib.csproj -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
 
 artifacts:
   - path: MyLib.$(GitVersion_NuGetVersion).nupkg
-  - path: MyLib\bin\$(CONFIGURATION)
-    name: MyLib-$(GitVersion_NuGetVersion).zip
+  - path: MyLib_$(GitVersion_NuGetVersion).zip
 
 nuget:
   account_feed: false
