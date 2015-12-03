@@ -13,7 +13,7 @@ build:
   verbosity: minimal
 
 after_build:
-  - 7z a "MyLib_%GitVersion_NuGetVersion%.zip" ".\MyLib\bin\%CONFIGURATION%\"
+  - 7z a "MyLib_%GitVersion_NuGetVersion%.zip" ".\MyLib\bin\%CONFIGURATION%\*"
   - nuget pack MyLib\MyLib.csproj -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
 
 artifacts:
