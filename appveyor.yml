@@ -1,6 +1,9 @@
 
 version: "{build}"
 
+init:
+  - ps: Get-ChildItem env:
+
 assembly_info:
   patch: false
 
